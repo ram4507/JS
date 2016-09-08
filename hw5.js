@@ -1,69 +1,106 @@
-/*
- * Это простой редактор JavaScript.
- *
- * Введите JavaScript, затем щёлкните правой кнопкой или выберите из меню Выполнить:
- * 1. Запустить, чтобы исполнить выделенный текст (Cmd-R),
- * 2. Исследовать, чтобы вызвать для результата Инспектор Объектов (Cmd-I), или,
- * 3. Отобразить, чтобы вставить результат в комментарий после выделения. (Cmd-L)
- */
+/*задание 1*/
+var a = '',b = '',c = '';
+a = parseInt(prompt('введите число от 0 до 255'));
+b = parseInt(prompt('введите число от 0 до 255'));
+c = parseInt(prompt('введите число от 0 до 255'));
+function colorRGB(a, b, c) {
+  var result = a.toString(16) + b.toString(16) + c.toString(16);
+  return ('#' + result.toUpperCase());
+}
+colorRGB(a, b, c);
+console.log(colorRGB(a, b, c));
 
-var person = [],count_pers=1;	
+/*задание 2*/
+var a = '';
+a = parseInt(prompt('введите число от 0 до 999'));
+function transform(a) {
+  var obj = {
+  };
+  if (a <= 999) {
+    obj['сотни'] = a / 100 | 0;
+    obj['десятки'] = a % 100 / 10 | 0;
+    obj['единицы'] = a % 10 | 0;
+    return obj;
+  } else {
+    console.log('введенное число превышает значение 999');
+    return obj;
+  }
+}
+console.log(transform(a));
 
-function addUser(){
-var user = [];
-  user.id = count_pers;  
+
+
+
+/*практика*/
+var person = [
+],
+count_pers = 1,
+del_user = '';
+function addUser() {
+  var user = [
+  ];
+  user.id = count_pers;
   user.firstName = prompt('Введите имя:');
   user.lastName = prompt('Введите фамилию:');
   user.birthDay = prompt('Дату рождения:');
-  phone = [];
-  var n = true,i=0;
-  while (n==true){
-	phone[i] = prompt('Номер телефона:');
+  phone = [
+  ];
+  var n = true,
+  i = 0;
+  while (n == true) {
+    phone[i] = prompt('Номер телефона:');
     phone.push(phone[i]);
-	  n=confirm('имеется еще телефон?');
+    n = confirm('имеется еще телефон?');
   };
-	phone.pop();
+  phone.pop();
   user.tlf = phone.toString();
-  
   for (var b = 0; b < user.length; ++b) {
-    user.push(user[b]);}
-	user.join(',');
-	person.push(user);
-	
+    user.push(user[b]);
+  }
+  user.join(',');
+  person.push(user);
 }
-
 function csvFormat() {
-	var persona='';
-	for(i=0; i<person.length; i++){	persona=persona+person[i].id+';'+person[i].firstName+';'+person[i].lastName+';'+person[i].birthDay+';'+person[i].tlf+';'+'\n';
-	}
-	return persona;
+  var persona = '';
+  for (i = 0; i < person.length; i++)
+  {
+    persona = persona + person[i].id + ';' + person[i].firstName + ';' + person[i].lastName + ';' + person[i].birthDay + ';' + person[i].tlf + ';' + '\n';
+  }
+  return persona;
 }
-function deluser(){
-	var n='';
-	n= parseInt(prompt('Укажите код пользователя ?'));
-	alert(n);
-	person.indexOf(n,0);
-	alert(person[n].id);
-	person.splice(person[n].id,6);
-	alert('hhhhh');
-	}
-
-
-var add=confirm("Внимание!! Добавляем пользователя");
+function deluser(del_user) {
+  var id = '',
+  n = del_user;
+  /*n = parseInt(prompt('Укажите код пользователя ?'));*/
+  id = parseInt(person[n - 1].id);
+  i = 0
+  while (i !== person[n - 1].id) {
+    i++
+  }
+  if (i == person[n - 1].id)
+  {
+    person.splice(n - 1, 1);
+  }
+	else{ 
+		alert('пользователь с таким кодом не найден');}
+  return person[0].lastName;
+}
+var add = confirm('Внимание!! Добавляем пользователя');
 while (add == true) {
-addUser(count_pers);
-	count_pers++;
-add=confirm("Будут еще пользователи?");
+  addUser(count_pers);
+  count_pers++;
+  add = confirm('Будут еще пользователи?');
 }
-console.log (csvFormat());
-var del=confirm('Желаете удалить пользователя?' );
+console.log(csvFormat());
+var del = confirm('Желаете удалить пользователя?');
 while (del == true) {
-deluser();
-	del=confirm("Будут еще удаляемые пользователи?");
+  del_user = parseInt(prompt('Укажите код пользователя ?'));
+  if (del_user >= count_pers | del_user == 0) {
+    alert('Пользователя с кодом ' + 'нет');
+  } 
+  else {
+    deluser(del_user);
+  }
+  del = confirm('Будут еще удаляемые пользователи?');
 }
-console.log (csvFormat());
-/*
-Exception: TypeError: person[n] is undefined
-deluser@Scratchpad/54:45:2
-@Scratchpad/54:60:1
-*/
+console.log(csvFormat());
